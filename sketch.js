@@ -29,14 +29,16 @@ function setup() {
 
   noFill();
   noStroke();
-  stroke(200, 0, 0);
 
   for(let i = 0; i < pathCount; i++) {
     paths.push(
       new Path({
-        startingPoint: createVector(random(0, windowWidth), random(0, windowHeight)),
-        segmentCount: floor(random(7, 40)),
-        magnitude: floor(random(8, 24)),
+        startingSegment: createVector(random(0, windowWidth), random(0, windowHeight)),
+        pointWeight: 5,
+        curveWeight: 1,
+        curveColor: color(200, 0, 0),
+        segmentCount: floor(random(5, 20)),
+        magnitude: floor(random(6, 24)),
       })
     );
   }
@@ -63,13 +65,17 @@ function setup() {
 }
 
 function draw() {
-  //background(255);
+  background(255, 245, 247);
   //image(sampleImage, 0, 0, colPixels, rowPixels);
   //drawGrid();
   //drawGridHeadings();
 
   paths.forEach(path => {
     path.draw();
+  });
+
+  paths.forEach(path => {
+    path.drawActiveSegment();
   });
 
   noLoop();

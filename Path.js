@@ -1,9 +1,12 @@
 class Path {
   constructor(config) {
     this.segmentCount = config.segmentCount;
-    this.startingPoint = config.startingPoint;
+    this.startingSegment = config.startingSegment;
     this.magnitude = config.magnitude;
     this.segments = [];
+    this.pointWeight = config.pointWeight;
+    this.curveWeight = config.curveWeight;
+    this.curveColor = config.curveColor;
 
     this.setup();
   }
@@ -11,7 +14,7 @@ class Path {
   setup() {
     this.segments.push(
       new Segment({
-        start: this.startingPoint,
+        start: this.startingSegment,
         magnitude: this.magnitude,
       })
     );
@@ -35,21 +38,28 @@ class Path {
   }
 
   draw() {
-    strokeWeight(1);
+    strokeWeight(this.curveWeight);
+    stroke(this.curveColor);
     beginShape();
-    //curveVertex(this.segments[0].start.x, this.segments[0].start.y);
     this.segments.forEach(segment => {
       curveVertex(segment.start.x, segment.start.y);
     });
-    //curveVertex(this.segments[this.segments.length - 1].start.x, this.segments[this.segments.length - 1].start.y);
     endShape();
 
     this.segments.forEach((segment, index) => {
       if (index == 0 || index == this.segments.length - 1) {
         //console.log(index)
       } else {
+        stroke(this.curveColor);
+        segment.pointWeight = lerp(this.pointWeight, 2, (index + 1) / (this.segments.length - 2));
         segment.draw();
       }
     });
+  }
+
+  drawActiveSegment() {
+    stroke(100, 0, 0);
+    this.segments[2].pointWeight *= 1.5;
+    this.segments[2].draw();
   }
 }
