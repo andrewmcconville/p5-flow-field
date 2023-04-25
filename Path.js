@@ -25,8 +25,8 @@ class Path {
       );
 
       if (
-        this.segments[i].end.x < 0 || this.segments[i].end.x > windowWidth ||
-        this.segments[i].end.y < 0 || this.segments[i].end.y > windowHeight
+        this.segments[i].end.x < 0 - overScan || this.segments[i].end.x > windowWidth + overScan ||
+        this.segments[i].end.y < 0 - overScan || this.segments[i].end.y > windowHeight + overScan
       ) {
         //console.log('segment off canvas');
         this.segmentCount = i + 1;

@@ -9,7 +9,7 @@ class Segment {
   }
 
   setup() {
-    this.heading = sampleImageCanvas.get(this.start.x, this.start.y);
+    this.heading = sampleImageCanvas.get(this.start.x + overScan, this.start.y + overScan);
     this.heading = map(this.heading[0], 0, 255, -PI, PI);
 
     this.end.setMag(this.magnitude);
