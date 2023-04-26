@@ -51,10 +51,12 @@ class Path {
         //console.log(index)
       } else {
         stroke(this.curveColor);
-        segment.pointWeight = lerp(this.pointWeight, 2, (index + 1) / (this.segments.length - 2));
+        segment.pointWeight = lerp(this.pointWeight, this.curveWeight * 2, (index + 1) / (this.segments.length - 2));
         segment.draw();
       }
     });
+
+    this.drawActiveSegment();
   }
 
   drawActiveSegment() {
